@@ -76,10 +76,10 @@ const sapPay = new ApiController(sappayClient);
 
 ## List of APIs
 
-- [Authentication](doc/controllers/api.md)
-- [Create Invoice](doc/controllers/api.md)
-- [Get Checkout](doc/controllers/api.md)
-- [Perform Checkout](doc/controllers/api.md)
+- [Authentication](doc/controllers/api.md#authenticate)
+- [Create Invoice](doc/controllers/api.md#create-invoice)
+- [Get Checkout](doc/controllers/api.md#get-checkout)
+- [Perform Checkout](doc/controllers/api.md#get-checkout)
 
 ## Classes Documentation
 
