@@ -168,3 +168,34 @@ try {
   }
 }
 ```
+
+# Get Status
+
+get last transaction status against invoiceId.
+
+```ts
+async getStatus(
+  invoiceId: string,
+  requestOptions?: RequestOptions
+): Promise<TransactionStatus | null>
+```
+
+## Parameters
+
+| Parameter        | Type                          | Tags     | Description                      |
+| ---------------- | ----------------------------- | -------- | -------------------------------- |
+| `invoiceId`      | `string`                      | Required | Id for getting checkout.         |
+| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+
+## Response Type
+
+[`TransactionStatus`](../models/transaction-status.md) type `object`.
+
+## Example Usage
+
+```ts
+const status = await apiController.getStatus('<INVOICE ID>');
+if (!status) {
+  console.log('something went wrong...');
+}
+```

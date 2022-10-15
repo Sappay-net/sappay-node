@@ -33,7 +33,7 @@ const sapPay = new ApiController(sappayClient);
     type: 'POS',
     amount: 1000,
     reference_id: '123Asd123',
-    token: 'asdasdasd',
+    token: token,
   });
   console.log('Invoice Created!', invoiceId);
 
@@ -46,14 +46,20 @@ const sapPay = new ApiController(sappayClient);
     output: process.stdout,
   });
 
-  rl.question('Please Enter the OTP  : ', async otp => {
-    console.log('Performing Checkout...');
-    const checkout = await sapPay.performCheckout({
-      invoice_id: invoiceId,
-      payment_processor_id: '11662803063052488',
-      customer_msisdn: '75470101',
-      otp: otp,
-    });
-    console.log('Checkout!', checkout);
+  const otp = await new Promise((resolve, reject) => {
+    rl.question('Please Enter the OTP  : ', resolve);
   });
+
+  console.log('Performing Checkout...');
+  const checkout = await sapPay.performCheckout({
+    invoice_id: invoiceId,
+    payment_processor_id: '11664282935583738',
+    customer_msisdn: '75470101',
+    otp: otp,
+  });
+  console.log('Checkout!', checkout);
+
+  console.log('Getting Status...');
+  const status = await sapPay.getStatus(invoiceId);
+  console.log('Status!', status);
 })();

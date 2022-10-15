@@ -9,6 +9,7 @@ import {
   checkoutPayloadSchema,
 } from '../models/checkoutPayload';
 import { Invoice, invoiceSchema } from '../models/invoice';
+import { TransactionStatus } from '../models/TransactionStatus';
 import { string, unknown, lazy } from '../schema';
 import { BaseController } from './baseController';
 require('dotenv').config();
@@ -120,5 +121,30 @@ export class ApiController extends BaseController {
     return req
       .callAsJson(unknown(), requestOptions)
       .then((res: ApiResponse<any>) => JSON.parse(res.body as string));
+  }
+
+  /**
+   * Get Status
+   *
+   * @param invoiceId invoice id
+   * @return TransactionStatus  last transaction status against invoiceId from the API call
+   */
+  async getStatus(invoiceId: string): Promise<TransactionStatus | null> {
+    const req = this.createRequest(
+      'GET',
+      `/api/transaction_status/?invoice=${invoiceId}`
+    );
+    req.contentType('application/json');
+    req.header('Authorization', `Bearer ${this.accessToken}`);
+    return req
+      .call()
+      .then(
+        (res: ApiResponse<any>) =>
+          JSON.parse(res.body as string).response as TransactionStatus
+      )
+      .catch((err: any) => {
+        console.log(err);
+        return null;
+      });
   }
 }
