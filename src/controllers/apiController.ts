@@ -66,7 +66,7 @@ export class ApiController extends BaseController {
     invoicePayload: Invoice,
     requestOptions?: RequestOptions
   ): Promise<string> {
-    const req = this.createRequest('POST', '/api/platform_invoice/');
+    const req = this.createRequest('POST', '/api/public/invoice/');
     const mapped = req.prepareArgs({
       invoicePayload: [invoicePayload, lazy(() => invoiceSchema)],
     });
@@ -79,7 +79,8 @@ export class ApiController extends BaseController {
     return req
       .callAsJson(unknown(), requestOptions)
       .then(
-        (res: ApiResponse<any>) => res.result.response.invoice_id as string
+        (res: ApiResponse<any>) =>
+          res.result.response.invoice_detail.invoice_id as string
       );
   }
 

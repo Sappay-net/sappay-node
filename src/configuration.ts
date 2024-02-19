@@ -19,4 +19,5 @@ export interface Configuration {
 /** Environments available for API */
 export enum Environment {
   Production = 'production',
+  Development = 'development',
 }

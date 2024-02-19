@@ -53,7 +53,7 @@ const sapPay = new ApiController(sappayClient);
   console.log('Performing Checkout...');
   const checkout = await sapPay.performCheckout({
     invoice_id: invoiceId,
-    payment_processor_id: '11664282935583738',
+    payment_processor_id: '11688813752134336',
     customer_msisdn: '75470101',
     otp: otp,
   });

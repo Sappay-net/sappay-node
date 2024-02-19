@@ -51,7 +51,7 @@ export class Client implements ClientInterface {
         ? this._config.httpClientOptions.timeout
         : this._config.timeout;
     this._requestBuilderFactory = createRequestHandlerFactory(
-      server => getBaseUri(server, this._config),
+      (server) => getBaseUri(server, this._config),
       accessTokenAuthenticationProvider(this._config),
       new HttpClient({
         timeout: this._timeout,
@@ -93,10 +93,15 @@ function createHttpClientAdapter(client: HttpClient): HttpClientInterface {
 function getBaseUri(server: Server = 'default', config: Configuration): string {
   if (config.environment === Environment.Production) {
     if (server === 'default') {
-      return 'https://stage.api.sappay.net/';
+      return 'https://api.prod.sappay.net/';
     }
     if (server === 'DURL') {
-      return 'https://stage.api.sappay.net/api/v1/';
+      return 'https://api.stg.sappay.net/';
+    }
+  }
+  if (config.environment === Environment.Development) {
+    if (server === 'default') {
+      return 'https://api.stg.sappay.net/';
     }
   }
   throw new Error('Could not get Base URL. Invalid environment or server.');
@@ -128,7 +133,7 @@ function tap(
 ): SdkRequestBuilderFactory {
   return (...args) => {
     const requestBuilder = requestBuilderFactory(...args);
-    callback.forEach(c => c(requestBuilder));
+    callback.forEach((c) => c(requestBuilder));
     return requestBuilder;
   };
 }

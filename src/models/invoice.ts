@@ -8,6 +8,7 @@ import { Customer, customerSchema } from './customer';
 
 enum Type {
   POS = 'POS',
+  ECOMMERCE = 'ECOMMERCE',
 }
 
 export const typeSchema: Schema<Type> = string() as Schema<Type>;
