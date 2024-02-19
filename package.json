@@ -16,7 +16,8 @@
     "build": "tsdx build",
     "test": "yarn build && node test.js",
     "lint": "tsdx lint src",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "postinstall": "tsdx build"
   },
   "peerDependencies": {},
   "prettier": {
